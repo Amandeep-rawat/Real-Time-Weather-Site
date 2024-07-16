@@ -1,40 +1,41 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 
-*{
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
+body {
     margin: 0;
     font-family: "Rubik", sans-serif;
     background: #111;
 }
 
-h1,h3{
+h1,
+h3 {
     font-weight: 400;
 }
-.weather-app{
+
+.weather-app {
     min-height: 100vh;
     background-image: url(images/home_cloud_background.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color:white;
+    color: white;
     position: relative;
     transition: 0.5s ease;
-    opacity:1;
+    opacity: 1;
     /* change opactiy to 0 after app finsish */
 }
 
 
 
 /* add background overlay */
-.weather-app::before{
-    content:"";
+.weather-app::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -46,7 +47,7 @@ h1,h3{
 
 
 
-.container{
+.container {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,10 +61,10 @@ h1,h3{
 
 
 
-    
+
 }
 
-.container >div{
+.container>div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,11 +72,14 @@ h1,h3{
 
 }
 
-.city-time,.temp,.weather{
+.city-time,
+.temp,
+.weather {
     margin: 0 1em;
     text-align: center;
 }
-.city-time h1{
+
+.city-time h1 {
     margin: 0;
     font-size: 3em;
     margin-bottom: 0.2em;
@@ -83,39 +87,41 @@ h1,h3{
 
 }
 
-.temp{
-    font-size:7em;
+.temp {
+    font-size: 7em;
     margin: 0;
 
 }
 
-.weather img{
+.weather img {
     display: block;
     margin: 0.5em 0;
 
 }
-.panel{
+
+.panel {
     position: absolute;
     width: 40%;
     height: 100%;
     top: 0;
     right: 0;
-    background: rgba(110,110,110,0.55);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
+    background: rgba(110, 110, 110, 0.55);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.18);
-    z-index:1;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 1;
     padding: 3em 2em;
     overflow-y: scroll;
 
 }
-.panel form{
+
+.panel form {
     margin-bottom: 3em;
 
 }
 
-.submit{
+.submit {
     position: absolute;
     top: 0;
     right: 0;
@@ -130,13 +136,15 @@ h1,h3{
     transition: 0.4s ease;
 
 }
-.submit:hover{
-    background:#fff !important;
+
+.submit:hover {
+    background: #fff !important;
     color: #000;
 
 }
-.search{
-    background:none;
+
+.search {
+    background: none;
     border: none;
     border-bottom: 1px #ccc solid;
     padding: 0 1em 0.5em 0;
@@ -145,37 +153,45 @@ h1,h3{
     font-size: 1.1em;
 
 }
-.search:focus{
+
+.search:focus {
     outline: none;
 }
-.search::placeholder{
+
+.search::placeholder {
     color: #ccc;
 
 }
-.panel ul{
+
+.panel ul {
     padding: 0 0 1em 0;
     margin: 2em 0;
     border-bottom: 1px #ccc solid;
 
 }
-.panel ul li{
+
+.panel ul li {
     color: #ccc;
     margin: 2.5em 0;
 
 }
-.panel ul h4{
+
+.panel ul h4 {
     margin: 3em 0;
 
 }
-.city{
+
+.city {
     display: block;
     cursor: pointer;
 
 }
-.city:hover{
+
+.city:hover {
     color: #fff;
 }
-.details li{
+
+.details li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -184,74 +200,80 @@ h1,h3{
 
 
 /* Respinsive design */
-@media screen and (max-width:1000px){
+@media screen and (max-width:1000px) {
 
-    .city-time h1{
+    .city-time h1 {
         margin: 0;
         font-size: 2.2em;
         margin-bottom: 0.2em;
-    
-    
+
+
     }
-    
-    .temp{
-        font-size:5.em;
+
+    .temp {
+        font-size: 5.em;
         margin: 0;
-    
+
     }
-    
-    .weather img{
+
+    .weather img {
         width: 32px;
         height: 32px;
         display: block;
         margin: 0.5em 0;
-    
+
     }
 
 }
 
 
 @media screen and (max-width:800px) {
-    .panel, .container{
+
+    .panel,
+    .container {
         position: relative;
         width: 100%;
         top: initial;
 
     }
-    
-    
+
+
 }
 
-@media screen and (max-width:500px){
-    html{
+@media screen and (max-width:500px) {
+    html {
         font-size: 12px;
     }
-    .city-time,.temp,.weather{
+
+    .city-time,
+    .temp,
+    .weather {
         margin: 0 1em;
     }
-    .city-time h1{
+
+    .city-time h1 {
         margin: 0;
         font-size: 1.3em;
         margin-bottom: 0.2em;
-    
-    
+
+
     }
-    
-    .temp{
-        font-size:3em;
+
+    .temp {
+        font-size: 3em;
         margin: 0;
-    
+
     }
-    .weather img{
+
+    .weather img {
         width: 20px;
         height: 20px;
     }
 }
 
 @media screen and (max-width:300px) {
-    .weather-app{
+    .weather-app {
         min-height: 40em;
     }
-    
-}
 
+}
