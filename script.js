@@ -49,9 +49,8 @@ function fetchweatherdata() {
             return response.json();
         })
         .then(data => {
-            // console.log(data)
             // Display temperature in Celsius
-            temp.innerHTML = `${(data.main.temp - 273.15).toFixed(1)}&#176;C`;
+
 
             // Display weather condition
             conditionOutput.innerHTML = data.weather[0].main;
@@ -61,37 +60,6 @@ function fetchweatherdata() {
             const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
             icon.src = iconUrl;
             icon.alt = data.weather[0].description;
-
-            // Determine time of day based on sunrise and sunset times
-            const sunriseTimestamp = data.sys.sunrise * 1000;
-            const sunsetTimestamp = data.sys.sunset * 1000;
-            const currentTimestamp = new Date().getTime();
-
-            let timeofday = "day"; // Default to day
-            if (currentTimestamp < sunriseTimestamp || currentTimestamp > sunsetTimestamp) {
-                timeofday = "night";
-            }
-
-            // Set background image based on weather condition and time of day
-            const code = data.weather[0].id;
-            if (code == 800) {
-                app.style.backgroundImage = `url(./images/${timeofday}/clear.jpg)`;
-            } else if (code >= 801 && code <= 804) {
-                app.style.backgroundImage = `url(./images/${timeofday}/cloudy.jpg)`;
-            } else if (code >= 500 && code <= 504 || code == 511 || (code >= 520 && code <= 531)) {
-                app.style.backgroundImage = `url(./images/${timeofday}/rain.jpg)`;
-            } else if (code >= 600 && code <= 622 || code == 612 || code == 613 || code == 615 || code == 616) {
-                app.style.backgroundImage = `url(./images/${timeofday}/snow.jpg)`;
-            } else if (code >= 701 && code <= 781) {
-                app.style.backgroundImage = `url(./images/mist.jpg)`;
-            } else {
-                app.style.backgroundImage = `url(./images/thunder.jpg)`;
-            }
-
-            // Display other weather information
-            cloudOutput.innerHTML = `${data.clouds.all}%`;
-            windOutput.innerHTML = `${data.wind.speed} Km/H`;
-            humidityOutput.innerHTML = `${data.main.humidity}%`;
 
             // Get latitude and longitude from weather data
             const { lat, lon } = data.coord;
@@ -103,26 +71,59 @@ function fetchweatherdata() {
             fetch(timeZoneUrl)
                 .then(response => response.json())
                 .then(timeZoneData => {
-                    // console.log(timeZoneData)
                     const localTime = new Date(timeZoneData.formatted);
+                    const currentTimestamp = localTime.getTime();
+
+                    // Determine time of day based on sunrise and sunset times
+                    const sunriseTimestamp = data.sys.sunrise * 1000;
+                    const sunsetTimestamp = data.sys.sunset * 1000;
+
+                    let timeofday = "day";
+                    if (currentTimestamp < sunriseTimestamp || currentTimestamp > sunsetTimestamp) {
+                        timeofday = "night";
+                    }
+
+                    // Set background image based on weather condition and time of day
+                    const code = data.weather[0].id;
+                    if (code == 800) {
+                        app.style.backgroundImage = `url(./images/${timeofday}/clear.jpg)`;
+                    } else if (code >= 801 && code <= 804) {
+                        app.style.backgroundImage = `url(./images/${timeofday}/cloudy.jpg)`;
+                    } else if (code >= 500 && code <= 504 || code == 511 || (code >= 520 && code <= 531)) {
+                        app.style.backgroundImage = `url(./images/${timeofday}/rain.jpg)`;
+                    } else if (code >= 600 && code <= 622) {
+                        app.style.backgroundImage = `url(./images/${timeofday}/snow.jpg)`;
+                    } else if (code >= 701 && code <= 781) {
+                        app.style.backgroundImage = `url(./images/mist.jpg)`;
+                    } else {
+                        app.style.backgroundImage = `url(./images/thunder.jpg)`;
+                    }
+
+
+                    temp.innerHTML = `${(data.main.temp - 273.15).toFixed(1)}&#176;C`;
+
+                    // Display date and time
                     const hours = localTime.getHours();
                     const minutes = (localTime.getMinutes() < 10 ? '0' : '') + localTime.getMinutes();
                     const formattedTime = `${hours}:${minutes}`;
 
-                    // Display date and time
                     dateOutput.innerHTML = `${dayoftheweek(localTime.getDay())} ${localTime.getDate()}, ${localTime.getMonth() + 1} ${localTime.getFullYear()}`;
                     timeOutput.innerHTML = formattedTime;
+
+                    // Display other weather information
+                    cloudOutput.innerHTML = `${data.clouds.all}%`;
+                    windOutput.innerHTML = `${data.wind.speed} Km/H`;
+                    humidityOutput.innerHTML = `${data.main.humidity}%`;
+
+                    // Display city name
+                    nameOutput.innerHTML = data.name;
+
+                    // Show weather app container after data is loaded
+                    app.style.opacity = "1";
                 })
                 .catch(error => {
-                    alert("error fetching time zone data")
-                    // console.error('Error fetching time zone data:', error);
+                    alert("error fetching time zone data");
                 });
-
-            // Display city name
-            nameOutput.innerHTML = data.name;
-
-            // Show weather app container after data is loaded
-            app.style.opacity = "1";
         })
         .catch(error => {
             if (error.message === 'City not found') {
