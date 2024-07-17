@@ -49,7 +49,7 @@ function fetchweatherdata() {
             return response.json();
         })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             // Display temperature in Celsius
             temp.innerHTML = `${(data.main.temp - 273.15).toFixed(1)}&#176;C`;
 
@@ -103,7 +103,7 @@ function fetchweatherdata() {
             fetch(timeZoneUrl)
                 .then(response => response.json())
                 .then(timeZoneData => {
-                    console.log(timeZoneData)
+                    // console.log(timeZoneData)
                     const localTime = new Date(timeZoneData.formatted);
                     const hours = localTime.getHours();
                     const minutes = (localTime.getMinutes() < 10 ? '0' : '') + localTime.getMinutes();
@@ -114,7 +114,8 @@ function fetchweatherdata() {
                     timeOutput.innerHTML = formattedTime;
                 })
                 .catch(error => {
-                    console.error('Error fetching time zone data:', error);
+                    alert("error fetching time zone data")
+                    // console.error('Error fetching time zone data:', error);
                 });
 
             // Display city name
