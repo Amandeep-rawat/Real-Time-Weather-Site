@@ -66,7 +66,7 @@ function fetchweatherdata() {
 
             // Fetch local time using TimeZoneDB API
             const timeZoneApiKey = "9W1SMD55NV52";
-            const timeZoneUrl = `http://api.timezonedb.com/v2.1/get-time-zone?key=${timeZoneApiKey}&format=json&by=position&lat=${lat}&lng=${lon}`;
+            const timeZoneUrl = `https://api.timezonedb.com/v2.1/get-time-zone?key=${timeZoneApiKey}&format=json&by=position&lat=${lat}&lng=${lon}`;
 
             fetch(timeZoneUrl)
                 .then(response => response.json())
